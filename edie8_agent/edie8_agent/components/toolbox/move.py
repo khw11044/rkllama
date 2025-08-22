@@ -3,9 +3,18 @@ import sys
 import math
 import time
 import logging
+import os
 from typing import Annotated
 from geometry_msgs.msg import Twist
-from langchain.agents import tool
+
+# rkllama_core 모듈 추가
+sys.path.append(os.path.join(os.path.dirname(__file__), '../../../../../rkllama_function_calling'))
+
+try:
+    from rkllama_core import tool
+except ImportError:
+    # fallback to langchain if rkllama_core is not available
+    from langchain.agents import tool
 
 from edie8_agent.state_manager import get_state
 
@@ -228,4 +237,3 @@ def circle_move_perform(
 
     result = simple_move(agent, linear_x, angular_z, duration)
     return result
-

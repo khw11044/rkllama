@@ -2,9 +2,18 @@
 import math
 import ast
 import statistics
+import sys
+import os
 from typing import List, Tuple, Union
 
-from langchain.agents import tool
+# rkllama_core 모듈 추가
+sys.path.append(os.path.join(os.path.dirname(__file__), '../../../../../rkllama_function_calling'))
+
+try:
+    from rkllama_core import tool
+except ImportError:
+    # fallback to langchain if rkllama_core is not available
+    from langchain.agents import tool
 
 
 @tool

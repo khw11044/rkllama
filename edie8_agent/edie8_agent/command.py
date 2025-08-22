@@ -26,6 +26,7 @@ from edie8_agent.components.toolbox import calculation as calculation_tool
 # 유틸리티 함수 임포트
 from edie8_agent.components.utils.parser import custom_json_parser
 from edie8_agent.components.utils.llm import get_llm_server, get_llm_local, get_llm_api, get_llm
+from edie8_agent.components.utils.rkllama_adapter import get_rkllama_agent, get_llm_rkllama
 from edie8_agent.components.prompts.prompt import command_executor_prompts
 
 
@@ -34,20 +35,50 @@ def extract_value(field_name, response):
     return match.group(1).strip() if match else ""
 
 class CommandAgent:
-    def __init__(self, robot_node, local=False, verbose: bool = True, temperature: float = 0.6):
+    def __init__(self, robot_node, local=False, verbose: bool = True, temperature: float = 0.6, use_rkllama: bool = True):
         self.robot_node = robot_node
+        self.use_rkllama = use_rkllama
+        self.verbose = verbose
         
-        # 사용할 LLM 설정 
-        self.agent_llm = get_llm(local=local, model_name="gpt-4.1-mini",temperature=temperature)
+        if use_rkllama:
+            try:
+                # rkllama_core 사용
+                if verbose:
+                    print("🚀 rkllama_core를 사용하여 CommandAgent 초기화 중...")
+                
+                self.executor = ActionExecutor(
+                    add_prompt=command_executor_prompts,
+                    tool_packages=[action_tool, move_tool, calculation_tool], 
+                    verbose=verbose,
+                    session_id="command",
+                    use_rkllama=True
+                )
+                
+                if verbose:
+                    print("✅ rkllama_core 기반 CommandAgent 초기화 완료!")
+                    
+            except Exception as e:
+                print(f"⚠️ rkllama_core 초기화 실패: {e}")
+                print("🔄 기존 LangChain 방식으로 fallback...")
+                self._init_langchain_fallback(local, temperature, verbose)
+        else:
+            self._init_langchain_fallback(local, temperature, verbose)
+    
+    def _init_langchain_fallback(self, local, temperature, verbose):
+        """기존 LangChain 방식으로 초기화 (fallback)"""
+        self.agent_llm = get_llm(local=local, model_name="gpt-4.1-mini", temperature=temperature)
         
-        # 각 노드별 LLM 또는 Agent 설정 
         self.executor = ActionExecutor(
             llm=self.agent_llm,
             add_prompt=command_executor_prompts,
             tool_packages=[action_tool, move_tool, calculation_tool], 
             verbose=verbose,
-            session_id="command"
-            )
+            session_id="command",
+            use_rkllama=False
+        )
+        
+        if verbose:
+            print("✅ LangChain 기반 CommandAgent 초기화 완료!")
      
     
 # -------------------------------- CommandNode -------------------------------------------
