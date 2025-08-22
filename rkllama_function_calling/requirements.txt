@@ -1,0 +1,24 @@
+# ============================================
+# requirements.txt
+# ============================================
+
+requests>=2.25.0
+typing-extensions>=4.0.0; python_version<"3.10"
+
+
+# ============================================
+# requirements-dev.txt  
+# ============================================
+
+requests>=2.25.0
+typing-extensions>=4.0.0; python_version<"3.10"
+
+# Development dependencies
+pytest>=6.0
+pytest-cov>=2.0
+black>=21.0
+flake8>=3.8
+mypy>=0.910
+
+# Example dependencies
+psutil>=5.8.0

@@ -1,0 +1,89 @@
+# ============================================
+# setup.py 
+# ============================================
+
+from setuptools import setup, find_packages
+
+# Read README file
+try:
+    with open("README.md", "r", encoding="utf-8") as fh:
+        long_description = fh.read()
+except FileNotFoundError:
+    long_description = "RKLlama Core Tools - LangChain-style tool decorator for rkllama function calling"
+
+setup(
+    name="rkllama-core",
+    version="0.1.0",
+    author="Hyunwoo Kim (김현우)",
+    author_email="khw@aeirobot.com",  # 실제 이메일로 변경하세요
+    maintainer="AeiRobot Co., Ltd.",
+    description="LangChain-style tool decorator for rkllama function calling on Rockchip NPU",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/aeirobot/rkllama-core",  # 실제 저장소 URL로 변경하세요
+    project_urls={
+        "Bug Tracker": "https://github.com/aeirobot/rkllama-core/issues",
+        "Documentation": "https://github.com/aeirobot/rkllama-core/wiki",
+        "Source Code": "https://github.com/aeirobot/rkllama-core",
+        "Company": "https://aeirobot.com",
+    },
+    packages=find_packages(),
+    classifiers=[
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Developers",
+        "Intended Audience :: Science/Research",
+        "Topic :: Scientific/Engineering :: Artificial Intelligence",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Topic :: System :: Hardware :: Symmetric Multi-processing",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Operating System :: POSIX :: Linux",
+        "Environment :: GPU :: NVIDIA CUDA",
+        "Natural Language :: Korean",
+        "Natural Language :: English",
+    ],
+    python_requires=">=3.8",
+    install_requires=[
+        "requests>=2.25.0",
+        "typing-extensions>=4.0.0; python_version<'3.10'",
+    ],
+    extras_require={
+        "dev": [
+            "pytest>=6.0",
+            "pytest-cov>=2.0",
+            "black>=21.0",
+            "flake8>=3.8",
+            "mypy>=0.910",
+        ],
+        "examples": [
+            "psutil>=5.8.0",  # for system info tool
+        ],
+    },
+    entry_points={
+        "console_scripts": [
+            "rkllama-demo=main:main",
+        ],
+    },
+    include_package_data=True,
+    zip_safe=False,
+    keywords=[
+        "rkllama",
+        "rockchip",
+        "npu", 
+        "llm",
+        "function-calling",
+        "tools",
+        "langchain",
+        "ai",
+        "chatbot",
+        "aeirobot",
+        "김현우",
+        "hyunwoo-kim",
+    ],
+    license="MIT",
+    platforms=["Linux"],
+)

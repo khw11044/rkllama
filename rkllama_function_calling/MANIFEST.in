@@ -1,0 +1,11 @@
+# ============================================
+# MANIFEST.in
+# ============================================
+
+include README.md
+include LICENSE
+include requirements.txt
+include requirements-dev.txt
+recursive-include rkllama_core *.py
+include toolbox.py
+include main.py
