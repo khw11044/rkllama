@@ -4,10 +4,12 @@
 
 from .tools import tool, RKLlamaTool
 from .RKllamaAgent import RKLlamaAgent
+from .llm import LLM
 
 __version__ = "0.1.0"
 __all__ = [
     "tool",
     "RKLlamaTool", 
-    "RKLlamaAgent"
+    "RKLlamaAgent",
+    "LLM"
 ]

@@ -49,7 +49,7 @@ setup(
     python_requires=">=3.8",
     install_requires=[
         "requests>=2.25.0",
-        "typing-extensions>=4.0.0; python_version<'3.10'",
+        "typing-extensions>=4.0.0; python_version<'3.11'",
     ],
     extras_require={
         "dev": [
