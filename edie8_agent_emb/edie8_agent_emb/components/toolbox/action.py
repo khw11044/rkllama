@@ -1,19 +1,10 @@
 # action.py
 import time
-import sys
-import os
-from typing import Annotated
+from typing import Any, AsyncIterable, List, Dict, Literal, Optional, Union, Annotated
 
-# rkllama_core 모듈 추가
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../../../../rkllama_function_calling'))
+from edie8_agent_emb.components.rkllama_core import tool
 
-try:
-    from rkllama_core import tool
-except ImportError:
-    # fallback to langchain if rkllama_core is not available
-    from langchain.agents import tool
-
-from edie8_agent.state_manager import get_state
+from edie8_agent_emb.state_manager_emb import get_state
 from geometry_msgs.msg import Twist
 
 

@@ -53,37 +53,18 @@ def get_prompts():
         ),
 
         critical_instructions=(
-            "모든 이동 명령과 도구 호출은 반드시 **순차적으로** 실행되어야 하며, 병렬로 실행되어서는 안 됩니다."
-            "각 명령이 완료된 후에 다음 명령을 실행해야 합니다."
-
             "제자리에서 회전할 때는 'simple_rotation_perform'를 사용하세요. 반드시 제자리에서 라고 할때 해당 도구를 사용하세요."
             "돌아, 한바퀴 돌아, 돌아봐 와 같이 제자리라는 단어가 없는경우에는 `circle_move_perform` 도구를 사용하세요."
             "간단한 이동 명령에는 'simple_move_perform'을 사용하세요."
             "춤을 추거나 애교를 부릴 때, `dance_all` or `wave_ears` or `wave_legs` 도구를 사용하고 기쁘거나 신나는 표정 및 소리를 내세요."
-        ),
-
-        # constraints_and_guardrails=(
-        #     "항상 get_robot_pose를 사용하여 현재 위치를 확인하세요. "
-        # ),
-
-        # about_your_environment=(
-        #     "모든 이동은 EDIE 로봇의 현재 위치와 바라보는 방향을 기준으로 수행됩니다."
-        # ),
-
-        # about_your_capabilities=(
-        #     "직선을 그릴 때는 각속도를 0.0으로 설정하세요."
-        # ),
-
-        # nuance_and_assumptions=(
-        #     "Twist 메시지를 퍼블리시하거나 이동 명령을 실행한 후에는 반드시 get_robot_pose를 사용해 로봇의 새로운 위치를 가져와야 합니다."
-        # ),
+        )
     )
 
 
 system_prompts = [
     (
         "system",
-        "가능한 한 도구를 통해 실시간 정보를 기반으로 응답해야 합니다.",
+        "사용 가능한 한 도구를 통해 실시간 정보를 기반으로 응답해야 합니다.",
     ),
 
 ]

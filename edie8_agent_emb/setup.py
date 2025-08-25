@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'edie8_agent'
+package_name = 'edie8_agent_emb'
 
 setup(
     name=package_name,
@@ -12,6 +12,7 @@ setup(
         f"{package_name}.components.prompts",
         f"{package_name}.components.utils",
         f"{package_name}.components.toolbox",
+        f"{package_name}.components.rkllama_core",
     ],
     data_files=[
         ('share/ament_index/resource_index/packages',
@@ -27,8 +28,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'input = edie8_agent.input:main',
-            'command = edie8_agent.command:main',
+            'input_emb = edie8_agent_emb.input_emb:main',
+            'command_emb = edie8_agent_emb.command_emb:main',
         ],
     },
 

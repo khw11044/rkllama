@@ -4,19 +4,18 @@ import math
 import time
 import logging
 import os
-from typing import Annotated
+from typing import Any, AsyncIterable, List, Dict, Literal, Optional, Union, Annotated, Tuple
 from geometry_msgs.msg import Twist
-
-# rkllama_core 모듈 추가
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../../../../rkllama_function_calling'))
 
 try:
     from rkllama_core import tool
+    from edie8_agent_emb.components.rkllama_core import tool
 except ImportError:
     # fallback to langchain if rkllama_core is not available
-    from langchain.agents import tool
+    print("rkllama_core import 오류 - fallback to LangChain")
+    
 
-from edie8_agent.state_manager import get_state
+from edie8_agent_emb.state_manager_emb import get_state
 
 # 로깅 설정
 logging.basicConfig(
@@ -105,11 +104,7 @@ def get_robot_pose() -> str:
     """
     try:
         agent = get_state()
-        check = check_mode(agent)
-        if check:
-            return check
         
-    
         x, y, z = agent.current_position
         yaw = agent.current_yaw
         qx, qy, qz, qw = agent.current_orientation
@@ -156,11 +151,7 @@ def simple_move_perform(
     angular_z = refine_value(angular_z)
     
     agent = get_state()
-    check = check_mode(agent)
-    if check:
-        return check
 
-    
     result = simple_move(agent, linear_x, angular_z, duration)
     return result
  
@@ -190,10 +181,6 @@ def simple_rotation_perform(
     angular_z = refine_value(angular_z)
     
     agent = get_state()
-    check = check_mode(agent)
-    if check:
-        return check
-
     
     result = simple_move(agent, 0.0, angular_z, duration)
     return result
@@ -231,9 +218,6 @@ def circle_move_perform(
     angular_z = refine_value(angular_z)
         
     agent = get_state()
-    check = check_mode(agent)
-    if check:
-        return check
 
     result = simple_move(agent, linear_x, angular_z, duration)
     return result

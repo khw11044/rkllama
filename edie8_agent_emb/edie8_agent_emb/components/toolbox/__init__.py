@@ -1,6 +1,6 @@
 
 from typing import Literal, List, Optional
-from langchain.agents import Tool
+# from langchain.agents import Tool
 
 
 
@@ -15,7 +15,7 @@ class ToolBox:
         self.__iterative_add(calculation_tool)
 
   
-    def get_tools(self) -> List[Tool]:
+    def get_tools(self):
         return self.__tools
 
     def __add_tool(self, tool):
